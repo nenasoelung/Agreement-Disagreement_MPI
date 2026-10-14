@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun English: Expressing Agreement & Disagreement - SMP Kelas 9</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts: Fredoka & Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Fredoka', 'sans-serif'],
+                        body: ['Nunito', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#3B82F6',
+                            purple: '#8B5CF6',
+                            pink: '#EC4899',
+                            yellow: '#F59E0B',
+                            green: '#10B981',
+                            bgLight: '#F3F4F6'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #F8FAFC;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Fredoka', cursive;
+        }
+
+        /* Perspective for 3D Flashcard flip effect */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Speech bubble arrow styling */
+        .bubble-left::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 14px solid #FFFFFF;
+        }
+        .bubble-right::before {
+            content: '';
+            position: absolute;
+            right: -12px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 14px solid #FFFFFF;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+
+        .dropzone-active {
+            border-color: #3B82F6 !important;
+            background-color: #EFF6FF !important;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="text-slate-800 bg-slate-50 min-h-screen flex flex-col justify-between selection:bg-purple-200 selection:text-purple-900">
+
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b-4 border-indigo-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- App Logo & Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-12 h-12 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg transform hover:rotate-6 transition-transform">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block">Bahasa Inggris • SMP Kelas 9</span>
+                        <h1 class="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight leading-none">English Express!</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Buttons -->
+                <nav class="hidden lg:flex items-center space-x-2">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm flex items-center space-x-2 transition-all bg-indigo-600 text-white shadow-md">
+                        <i class="fa-solid fa-house"></i> <span>Home</span>
+                    </button>
+                    <button onclick="switchTab('tujuan')" id="nav-tujuan" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-bullseye"></i> <span>Tujuan</span>
+                    </button>
+                    <button onclick="switchTab('materi')" id="nav-materi" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-book-open"></i> <span>Materi</span>
+                    </button>
+                    <button onclick="switchTab('kuis')" id="nav-kuis" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-pen-to-square"></i> <span>Kuis</span>
+                    </button>
+                    <button onclick="switchTab('game')" id="nav-game" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-puzzle-piece"></i> <span>Drag & Drop</span>
+                    </button>
+                    <button onclick="switchTab('tentang')" id="nav-tentang" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-user-graduate"></i> <span>Tentang</span>
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex lg:hidden">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-xl text-slate-600 hover:text-indigo-600 hover:bg-slate-100 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('home')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-indigo-50 flex items-center space-x-3">
+                <i class="fa-solid fa-house text-indigo-500 w-6"></i> <span>Home</span>
+            </button>
+            <button onclick="switchTab('tujuan')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-indigo-50 flex items-center space-x-3">
+                <i class="fa-solid fa-bullseye text-indigo-500 w-6"></i> <span>Tujuan Pembelajaran</span>
+            </button>
+            <button onclick="switchTab('materi')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-indigo-50 flex items-center space-x-3">
+                <i class="fa-solid fa-book-open text-indigo-500 w-6"></i> <span>Materi Expression</span>
+            </button>
+            <button onclick="switchTab('kuis')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-indigo-50 flex items-center space-x-3">
+                <i class="fa-solid fa-pen-to-square text-indigo-500 w-6"></i> <span>Kuis Interaktif</span>
+            </button>
+            <button onclick="switchTab('game')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-indigo-50 flex items-center space-x-3">
+                <i class="fa-solid fa-puzzle-piece text-indigo-500 w-6"></i> <span>Game Drag & Drop</span>
+            </button>
+            <button onclick="switchTab('tentang')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-indigo-50 flex items-center space-x-3">
+                <i class="fa-solid fa-user-graduate text-indigo-500 w-6"></i> <span>Tentang Pengembang</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+
+        <!-- ================================================================= -->
+        <!-- TAB 1: HOME (BERANDA & COMIC INTERACTIVE HERO) -->
+        <!-- ================================================================= -->
+        <section id="tab-home" class="tab-content space-y-10">
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-3xl p-6 sm:p-10 text-white overflow-hidden shadow-2xl border-4 border-white">
+                <div class="absolute -right-10 -bottom-10 opacity-20 pointer-events-none">
+                    <i class="fa-solid fa-comments text-[240px]"></i>
+                </div>
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-yellow-200">
+                        <i class="fa-solid fa-star text-yellow-300"></i>
+                        <span>Fase D Kurikulum Merdeka • Kelas 9 SMP</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-black leading-tight">
+                        Expressing Agreement & Disagreement
+                    </h2>
+                    <p class="text-indigo-100 text-base sm:text-lg leading-relaxed">
+                        Belajar cara menyatakan <strong class="text-yellow-300">setuju</strong> dan <strong class="text-pink-200">tidak setuju</strong> dalam Bahasa Inggris secara sopan dan komunikatif lewat cerita interaktif, kuis, serta game seru!
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <button onclick="switchTab('materi')" class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-extrabold px-6 py-3.5 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all flex items-center space-x-2 text-base">
+                            <i class="fa-solid fa-circle-play text-xl"></i>
+                            <span>Mulai Belajar</span>
+                        </button>
+                        <button onclick="switchTab('kuis')" class="bg-white/10 hover:bg-white/20 border-2 border-white/40 text-white font-bold px-6 py-3.5 rounded-2xl backdrop-blur-md hover:shadow-lg transition-all flex items-center space-x-2 text-base">
+                            <i class="fa-solid fa-gamepad"></i>
+                            <span>Tantangan Kuis</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Dialogue Comic Section -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-slate-200 shadow-xl space-y-6">
+                <div class="flex items-center justify-between border-b pb-4">
+                    <div>
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-widest">Komik Dialog Interaktif</span>
+                        <h3 class="text-2xl font-extrabold text-slate-800">Percakapan Sekolah: "Kantin Bebas Plastik"</h3>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 font-bold px-3 py-1 rounded-full text-xs hidden sm:inline-flex items-center gap-1">
+                        <i class="fa-solid fa-volume-high"></i> Ada Suara Audio TTS
+                    </span>
+                </div>
+
+                <!-- Comic Canvas Grid -->
+                <div class="bg-indigo-50/60 rounded-2xl p-4 sm:p-6 border-2 border-indigo-100 space-y-6">
+                    <!-- Dialogue Row 1: Budi -->
+                    <div class="flex items-start space-x-4">
+                        <!-- Student Avatar Budi -->
+                        <div class="flex-shrink-0 text-center">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-blue-400 to-indigo-600 rounded-full border-4 border-white shadow-md flex items-center justify-center text-white text-3xl sm:text-4xl">
+                                <i class="fa-solid fa-user-graduate"></i>
+                            </div>
+                            <span class="block mt-1 text-xs font-extrabold text-indigo-700">BUDI</span>
+                        </div>
+                        <!-- Speech Bubble -->
+                        <div class="relative bg-white rounded-2xl p-4 shadow-md border border-indigo-100 max-w-xl bubble-left flex-grow">
+                            <p class="text-xs font-bold text-indigo-500 uppercase">Topik Isu Sekolah</p>
+                            <p class="text-base sm:text-lg font-bold text-slate-800 mt-1">
+                                "I think our school canteen should ban single-use plastic bottles to protect our environment!"
+                            </p>
+                            <p class="text-xs text-slate-500 mt-1 italic">
+                                (Menurutku sekolah kita harus melarang botol plastik sekali pakai di kantin untuk menjaga lingkungan!)
+                            </p>
+                            <button onclick="speakEnglish('I think our school canteen should ban single-use plastic bottles to protect our environment!')" class="mt-2 inline-flex items-center space-x-1 text-xs font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-volume-high"></i> <span>Dengarkan (Pronunciation)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Choice for Siti's Response -->
+                    <div class="bg-white rounded-2xl p-5 border-2 border-dashed border-purple-300 shadow-sm text-center space-y-3">
+                        <p class="text-sm font-bold text-purple-900">
+                            <i class="fa-solid fa-hand-pointer text-purple-600 mr-1"></i>
+                            Bagaimana tanggapan Siti? Pilih opsi jawaban untuk melanjutkan percakapan:
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <button onclick="setComicResponse('agree')" id="btn-comic-agree" class="bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold px-5 py-2.5 rounded-xl shadow transition-all flex items-center space-x-2">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <span>Tanggapan SETUJU (Agreement)</span>
+                            </button>
+                            <button onclick="setComicResponse('disagree')" id="btn-comic-disagree" class="bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-5 py-2.5 rounded-xl shadow transition-all flex items-center space-x-2">
+                                <i class="fa-solid fa-thumbs-down"></i>
+                                <span>Tanggapan TIDAK SETUJU (Disagreement)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dialogue Row 2: Siti Dynamic Response -->
+                    <div id="siti-dialogue-box" class="flex items-start justify-end space-x-4">
+                        <!-- Speech Bubble -->
+                        <div class="relative bg-white rounded-2xl p-4 shadow-md border border-purple-100 max-w-xl bubble-right flex-grow text-right">
+                            <p id="siti-type-badge" class="text-xs font-bold text-emerald-600 uppercase">Expressing Agreement</p>
+                            <p id="siti-english-text" class="text-base sm:text-lg font-bold text-slate-800 mt-1">
+                                "I couldn't agree more, Budi! We can all bring our own reusable water bottles from home."
+                            </p>
+                            <p id="siti-indo-text" class="text-xs text-slate-500 mt-1 italic">
+                                (Aku sangat setuju sekali, Budi! Kita semua bisa membawa botol minum sendiri dari rumah.)
+                            </p>
+                            <button id="siti-audio-btn" onclick="speakEnglish('I couldn't agree more, Budi! We can all bring our own reusable water bottles from home.')" class="mt-2 inline-flex items-center space-x-1 text-xs font-bold text-purple-600 bg-purple-50 hover:bg-purple-100 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-volume-high"></i> <span>Dengarkan Siti</span>
+                            </button>
+                        </div>
+                        <!-- Student Avatar Siti -->
+                        <div class="flex-shrink-0 text-center">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-pink-400 to-purple-600 rounded-full border-4 border-white shadow-md flex items-center justify-center text-white text-3xl sm:text-4xl">
+                                <i class="fa-solid fa-user-graduate"></i>
+                            </div>
+                            <span class="block mt-1 text-xs font-extrabold text-purple-700">SITI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Cards Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-4 font-bold">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-800 mb-2">Materi Lengkap</h4>
+                    <p class="text-slate-600 text-sm">
+                        Pelajari perbedaan *Strong Agreement*, *Mild Agreement*, hingga *Polite Disagreement* beserta audio dan contoh penggunaannya.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-2xl mb-4 font-bold">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-800 mb-2">Flashcard Audio</h4>
+                    <p class="text-slate-600 text-sm">
+                        Kartu memori balik interaktif. Klik kartu untuk melihat terjemahan dan dengarkan pelafalan pengucapan yang benar.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-4 font-bold">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-800 mb-2">Kuis & Mini Game</h4>
+                    <p class="text-slate-600 text-sm">
+                        Uji pemahamanmu lewat kuis skor langsung dan game drag-and-drop frasa dengan efek suara dan selebrasi confetti!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 2: TUJUAN PEMBELAJARAN (CURRICULUM LEARNING OBJECTIVES) -->
+        <!-- ================================================================= -->
+        <section id="tab-tujuan" class="tab-content hidden space-y-8">
+            <!-- Header Banner -->
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl">
+                <span class="text-xs font-bold text-blue-200 uppercase tracking-widest block">Kurikulum Merdeka • Bahasa Inggris</span>
+                <h2 class="text-3xl font-extrabold mt-1">Capaian & Tujuan Pembelajaran (Fase D)</h2>
+                <p class="text-blue-100 mt-2 text-sm sm:text-base">
+                    Panduan target kompetensi yang harus dicapai oleh siswa Kelas 9 SMP dalam materi ungkapan setuju dan tidak setuju.
+                </p>
+            </div>
+
+            <!-- CP & Elemen Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Capaian Pembelajaran -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-indigo-100 shadow-lg space-y-4">
+                    <div class="flex items-center space-x-3 text-indigo-600">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold">Capaian Pembelajaran (CP)</h3>
+                    </div>
+                    <p class="text-slate-700 text-sm leading-relaxed">
+                        Pada akhir Fase D, peserta didik menggunakan Bahasa Inggris untuk berinteraksi dan saling bertukar ide, pengalaman, serta pendapat secara lisan dan tertulis dalam konteks sekolah dan kehidupan sehari-hari menggunakan ungkapan persetujuan (<em class="text-indigo-600 font-bold">Agreement</em>) dan ketidaksetujuan (<em class="text-pink-600 font-bold">Disagreement</em>).
+                    </p>
+                </div>
+
+                <!-- Elemen Bahasa -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-purple-100 shadow-lg space-y-4">
+                    <div class="flex items-center space-x-3 text-purple-600">
+                        <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-ear-listen"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold">Elemen Fokus Target</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                            <span><strong>Menyimak - Berbicara:</strong> Memahami ungkapan setuju/tidak setuju dalam dialog serta mempraktikkannya.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                            <span><strong>Membaca - Memirsa:</strong> Mengidentifikasi fungsi sosial dan struktur teks frasa opini & responnya.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Checklist Target (IKTP) -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-slate-200 shadow-xl space-y-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-slate-800">Indikator Ketercapaian (IKTP)</h3>
+                        <p class="text-slate-500 text-sm">Beri tanda centang pada target yang sudah berhasil kamu kuasai hari ini!</p>
+                    </div>
+                    <span id="iktp-counter" class="bg-indigo-100 text-indigo-700 font-extrabold px-4 py-2 rounded-2xl text-sm">
+                        0 / 4 Selesai
+                    </span>
+                </div>
+
+                <div class="space-y-3">
+                    <label class="flex items-center space-x-4 p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/50 cursor-pointer transition-all">
+                        <input type="checkbox" onchange="updateIKTPProgress()" class="iktp-check w-6 h-6 text-indigo-600 rounded-lg focus:ring-indigo-500 border-slate-300">
+                        <span class="text-sm sm:text-base font-bold text-slate-700">1. Mengidentifikasi ungkapan Agreement dan Disagreement dalam percakapan lisan & tulis.</span>
+                    </label>
+
+                    <label class="flex items-center space-x-4 p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/50 cursor-pointer transition-all">
+                        <input type="checkbox" onchange="updateIKTPProgress()" class="iktp-check w-6 h-6 text-indigo-600 rounded-lg focus:ring-indigo-500 border-slate-300">
+                        <span class="text-sm sm:text-base font-bold text-slate-700">2. Membedakan tingkat persetujuan (Strong Agreement vs Polite Disagreement).</span>
+                    </label>
+
+                    <label class="flex items-center space-x-4 p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/50 cursor-pointer transition-all">
+                        <input type="checkbox" onchange="updateIKTPProgress()" class="iktp-check w-6 h-6 text-indigo-600 rounded-lg focus:ring-indigo-500 border-slate-300">
+                        <span class="text-sm sm:text-base font-bold text-slate-700">3. Mengucapkan frasa setuju dan tidak setuju dengan intonasi dan pelafalan (*pronunciation*) yang tepat.</span>
+                    </label>
+
+                    <label class="flex items-center space-x-4 p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/50 cursor-pointer transition-all">
+                        <input type="checkbox" onchange="updateIKTPProgress()" class="iktp-check w-6 h-6 text-indigo-600 rounded-lg focus:ring-indigo-500 border-slate-300">
+                        <span class="text-sm sm:text-base font-bold text-slate-700">4. Menyusun kalimat respon terhadap argumen teman dalam konteks percakapan di sekolah.</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 3: MATERI PEMBELAJARAN (LESSON MATERIAL & FLASHCARDS) -->
+        <!-- ================================================================= -->
+        <section id="tab-materi" class="tab-content hidden space-y-10">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl">
+                <span class="text-xs font-bold text-pink-200 uppercase tracking-widest block">Modul Ringkas & Praktis</span>
+                <h2 class="text-3xl font-extrabold mt-1">Ungkapan Setuju & Tidak Setuju</h2>
+                <p class="text-purple-100 mt-2 text-sm sm:text-base">
+                    Pelajari variasi tingkatan frasa, dengarkan audio pengucapannya, dan hafalkan melalui kartu kilat (Flashcards) interaktif!
+                </p>
+            </div>
+
+            <!-- Section 1: Explanation Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Agreement Category -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-emerald-200 shadow-lg space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Setuju</span>
+                        <i class="fa-solid fa-circle-check text-emerald-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Expressing Agreement</h3>
+                    <p class="text-xs text-slate-600">Digunakan ketika kamu mendukung atau memiliki pemikiran yang sama dengan opini orang lain.</p>
+                    
+                    <div class="space-y-3 pt-2">
+                        <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-100">
+                            <span class="text-xs font-bold text-emerald-700 block">Strong Agreement (Sangat Setuju)</span>
+                            <ul class="text-sm font-bold text-slate-800 space-y-1 mt-1">
+                                <li class="flex items-center justify-between">
+                                    <span>• "I couldn't agree more!"</span>
+                                    <button onclick="speakEnglish('I couldn\'t agree more!')" class="text-emerald-600 hover:text-emerald-800"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                                <li class="flex items-center justify-between">
+                                    <span>• "You're absolutely right!"</span>
+                                    <button onclick="speakEnglish('You\'re absolutely right!')" class="text-emerald-600 hover:text-emerald-800"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-teal-50 p-3 rounded-xl border border-teal-100">
+                            <span class="text-xs font-bold text-teal-700 block">Mild / Standard Agreement (Setuju Biasa)</span>
+                            <ul class="text-sm font-bold text-slate-800 space-y-1 mt-1">
+                                <li class="flex items-center justify-between">
+                                    <span>• "I agree with you."</span>
+                                    <button onclick="speakEnglish('I agree with you')" class="text-teal-600 hover:text-teal-800"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                                <li class="flex items-center justify-between">
+                                    <span>• "That's a good point."</span>
+                                    <button onclick="speakEnglish('That\'s a good point')" class="text-teal-600 hover:text-teal-800"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disagreement Category -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-rose-200 shadow-lg space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Tidak Setuju</span>
+                        <i class="fa-solid fa-circle-xmark text-rose-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Expressing Disagreement</h3>
+                    <p class="text-xs text-slate-600">Digunakan ketika kamu menolak atau memiliki gagasan berbeda dari opini orang lain.</p>
+                    
+                    <div class="space-y-3 pt-2">
+                        <div class="bg-amber-50 p-3 rounded-xl border border-amber-100">
+                            <span class="text-xs font-bold text-amber-700 block">Polite Disagreement (Sopan / Halus)</span>
+                            <ul class="text-sm font-bold text-slate-800 space-y-1 mt-1">
+                                <li class="flex items-center justify-between">
+                                    <span>• "I see your point, but..."</span>
+                                    <button onclick="speakEnglish('I see your point, but')" class="text-amber-600 hover:text-amber-800"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                                <li class="flex items-center justify-between">
+                                    <span>• "I'm afraid I disagree."</span>
+                                    <button onclick="speakEnglish('I\'m afraid I disagree')" class="text-amber-600 hover:text-amber-800"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-rose-50 p-3 rounded-xl border border-rose-100">
+                            <span class="text-xs font-bold text-rose-700 block">Strong Disagreement (Sangat Tidak Setuju)</span>
+                            <ul class="text-sm font-bold text-slate-800 space-y-1 mt-1">
+                                <li class="flex items-center justify-between">
+                                    <span>• "I totally disagree!"</span>
+                                    <button onclick="speakEnglish('I totally disagree!')" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                                <li class="flex items-center justify-between">
+                                    <span>• "That's completely incorrect."</span>
+                                    <button onclick="speakEnglish('That\'s completely incorrect')" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Interactive Audio Flashcards Grid -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-slate-200 shadow-xl space-y-6">
+                <div>
+                    <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest">Latihan Memori Interaktif</span>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Flashcards Ungkapan & Audio</h3>
+                    <p class="text-slate-500 text-sm">Klik kartu untuk melihat terjemahan dalam Bahasa Indonesia dan tekan tombol audio untuk mendengarkan suaranya.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="flashcard-grid">
+                    <!-- Cards injected dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- Section 3: Summary Expression Table -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-slate-200 shadow-xl space-y-6">
+                <div>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Tabel Ringkasan Ungkapan Lengkap</h3>
+                    <p class="text-slate-500 text-sm">Rangkuman jenis ekspresi, kekuatan intensitas, dan makna bahasa Indonesia.</p>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-indigo-600 text-white text-xs sm:text-sm font-bold uppercase tracking-wider">
+                                <th class="p-4">Ungkapan (English Expression)</th>
+                                <th class="p-4">Kategori</th>
+                                <th class="p-4">Artinya (Indonesian)</th>
+                                <th class="p-4 text-center">Audio</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-sm font-semibold text-slate-700">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-indigo-900">"I couldn't agree more!"</td>
+                                <td class="p-4"><span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">Strong Agree</span></td>
+                                <td class="p-4">Saya sangat-sangat setuju sekali!</td>
+                                <td class="p-4 text-center">
+                                    <button onclick="speakEnglish('I couldn\'t agree more!')" class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-indigo-900">"That's exactly what I think."</td>
+                                <td class="p-4"><span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">Strong Agree</span></td>
+                                <td class="p-4">Itu persis seperti apa yang kupikirkan.</td>
+                                <td class="p-4 text-center">
+                                    <button onclick="speakEnglish('That\'s exactly what I think')" class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-indigo-900">"I agree with your idea."</td>
+                                <td class="p-4"><span class="bg-teal-100 text-teal-800 text-xs px-2.5 py-1 rounded-full font-bold">Standard Agree</span></td>
+                                <td class="p-4">Saya setuju dengan ide kamu.</td>
+                                <td class="p-4 text-center">
+                                    <button onclick="speakEnglish('I agree with your idea')" class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-indigo-900">"I see your point, but..."</td>
+                                <td class="p-4"><span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-bold">Polite Disagree</span></td>
+                                <td class="p-4">Aku paham maksudmu, tetapi...</td>
+                                <td class="p-4 text-center">
+                                    <button onclick="speakEnglish('I see your point, but')" class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-indigo-900">"I'm afraid I disagree."</td>
+                                <td class="p-4"><span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-bold">Polite Disagree</span></td>
+                                <td class="p-4">Maaf, tapi saya tidak setuju.</td>
+                                <td class="p-4 text-center">
+                                    <button onclick="speakEnglish('I\'m afraid I disagree')" class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-indigo-900">"I totally disagree with that."</td>
+                                <td class="p-4"><span class="bg-rose-100 text-rose-800 text-xs px-2.5 py-1 rounded-full font-bold">Strong Disagree</span></td>
+                                <td class="p-4">Saya sama sekali tidak setuju dengan itu.</td>
+                                <td class="p-4 text-center">
+                                    <button onclick="speakEnglish('I totally disagree with that')" class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 4: KUIS INTERAKTIF (QUIZ MODULE) -->
+        <!-- ================================================================= -->
+        <section id="tab-kuis" class="tab-content hidden space-y-8">
+            <!-- Header Banner -->
+            <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold text-yellow-200 uppercase tracking-widest block">Uji Pemahaman Siswa</span>
+                    <h2 class="text-3xl font-extrabold mt-1">Kuis Interaktif Expression</h2>
+                    <p class="text-orange-100 text-sm mt-1">Pilihlah ungkapan yang paling tepat sesuai skenario percakapan!</p>
+                </div>
+                <div class="flex items-center space-x-3 bg-white/20 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/30">
+                    <i class="fa-solid fa-stopwatch text-2xl text-yellow-300"></i>
+                    <div>
+                        <span class="text-xs font-bold text-white block uppercase">Timer</span>
+                        <span id="quiz-timer" class="text-2xl font-black text-yellow-300">20s</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Screen Container -->
+            <div id="quiz-screen" class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-slate-200 shadow-xl space-y-6">
+                <!-- Progress bar and Question info -->
+                <div class="flex items-center justify-between text-sm font-bold text-slate-500 border-b pb-4">
+                    <span id="question-number-badge">Soal 1 dari 5</span>
+                    <span id="quiz-score-badge" class="text-indigo-600">Skor Sementara: 0</span>
+                </div>
+
+                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                    <div id="quiz-progress-bar" class="bg-indigo-600 h-full w-[20%] transition-all duration-300"></div>
+                </div>
+
+                <!-- Question Prompt Box -->
+                <div class="bg-indigo-50/70 p-6 rounded-2xl border border-indigo-100 space-y-3">
+                    <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block">Skenario Percakapan</span>
+                    <h3 id="question-context" class="text-lg sm:text-xl font-bold text-slate-800 leading-snug">
+                        <!-- Context text inserted here -->
+                    </h3>
+                </div>
+
+                <!-- Answer Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Dynamic option buttons inserted via JS -->
+                </div>
+
+                <!-- Immediate Feedback Message Box -->
+                <div id="feedback-box" class="hidden rounded-2xl p-4 text-sm font-bold flex items-center space-x-3">
+                    <i id="feedback-icon" class="text-2xl"></i>
+                    <p id="feedback-text"></p>
+                </div>
+
+                <!-- Next Question Button -->
+                <div class="flex justify-end pt-2">
+                    <button id="next-q-btn" onclick="nextQuestion()" disabled class="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-extrabold px-6 py-3 rounded-2xl shadow-lg transition-all flex items-center space-x-2">
+                        <span>Soal Berikutnya</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Result Summary Screen -->
+            <div id="quiz-result-screen" class="hidden bg-white rounded-3xl p-8 border-2 border-slate-200 shadow-xl text-center space-y-6">
+                <div class="w-24 h-24 bg-gradient-to-tr from-yellow-400 to-amber-500 text-white rounded-full mx-auto flex items-center justify-center text-5xl shadow-lg animate-bounce">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-extrabold text-slate-800">Kuis Selesai!</h3>
+                    <p class="text-slate-500 mt-1">Berikut adalah hasil evaluasi pemahamanmu:</p>
+                </div>
+
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 inline-block max-w-sm w-full space-y-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Skor Akhir Kamu</span>
+                    <span id="final-score-text" class="text-5xl font-black text-indigo-600 block">80</span>
+                    <p id="final-message-text" class="text-sm font-bold text-emerald-600 mt-2">Hebat! Kamu sudah memahami materi ini dengan baik.</p>
+                </div>
+
+                <div class="pt-4 flex justify-center space-x-4">
+                    <button onclick="restartQuiz()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold px-6 py-3 rounded-2xl shadow-lg transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Ulangi Kuis</span>
+                    </button>
+                    <button onclick="switchTab('game')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold px-6 py-3 rounded-2xl shadow-lg transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                        <span>Main Drag & Drop</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 5: DRAG AND DROP (INTERACTIVE MATCHING GAME) -->
+        <!-- ================================================================= -->
+        <section id="tab-game" class="tab-content hidden space-y-8">
+            <!-- Header Banner -->
+            <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold text-emerald-200 uppercase tracking-widest block">Mini Game Interaktif</span>
+                    <h2 class="text-3xl font-extrabold mt-1">Drag & Drop Expression Sorter</h2>
+                    <p class="text-emerald-100 text-sm mt-1">Kelompokkan frasa ke dalam kategori yang tepat (Agreement atau Disagreement)!</p>
+                </div>
+                <button onclick="resetGame()" class="bg-white/20 hover:bg-white/30 text-white font-bold px-4 py-2.5 rounded-xl backdrop-blur-md transition-all flex items-center space-x-2 text-sm">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Reset Game</span>
+                </button>
+            </div>
+
+            <!-- Instructions note -->
+            <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-xs sm:text-sm font-bold text-amber-900 flex items-center space-x-3">
+                <i class="fa-solid fa-circle-info text-amber-600 text-xl flex-shrink-0"></i>
+                <p>
+                    <strong>Petunjuk:</strong> Kamu bisa menyeret (drag) kartu frasa atau menekan kartu lalu memilih zona kategori yang sesuai!
+                </p>
+            </div>
+
+            <!-- Game Board Area -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Source Cards Stack -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-xl space-y-4 lg:col-span-1">
+                    <div class="flex items-center justify-between border-b pb-3">
+                        <h3 class="font-extrabold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-layer-group text-indigo-500"></i>
+                            <span>Daftar Kartu Frasa</span>
+                        </h3>
+                        <span id="game-cards-left" class="bg-indigo-100 text-indigo-700 font-bold px-2.5 py-1 rounded-full text-xs">8 Kartu</span>
+                    </div>
+
+                    <div id="source-cards-container" class="space-y-3 min-h-[300px]">
+                        <!-- Draggable Expression Cards injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Dropzones Container (2 Columns) -->
+                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Dropzone 1: Agreement -->
+                    <div id="dropzone-agreement" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'agreement')" onclick="assignSelectedCard('agreement')" class="dropzone bg-emerald-50/50 rounded-3xl p-6 border-2 border-dashed border-emerald-300 min-h-[360px] flex flex-col justify-start transition-all cursor-pointer">
+                        <div class="flex items-center justify-between border-b border-emerald-200 pb-3 mb-4">
+                            <span class="font-extrabold text-emerald-800 flex items-center space-x-2">
+                                <i class="fa-solid fa-thumbs-up text-emerald-600"></i>
+                                <span>AGREEMENT (Setuju)</span>
+                            </span>
+                            <span id="count-agreement" class="bg-emerald-200 text-emerald-800 font-bold px-2.5 py-1 rounded-full text-xs">0 Card</span>
+                        </div>
+                        <div id="cards-agreement" class="space-y-3 flex-grow">
+                            <!-- Dropped items go here -->
+                        </div>
+                    </div>
+
+                    <!-- Dropzone 2: Disagreement -->
+                    <div id="dropzone-disagreement" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'disagreement')" onclick="assignSelectedCard('disagreement')" class="dropzone bg-rose-50/50 rounded-3xl p-6 border-2 border-dashed border-rose-300 min-h-[360px] flex flex-col justify-start transition-all cursor-pointer">
+                        <div class="flex items-center justify-between border-b border-rose-200 pb-3 mb-4">
+                            <span class="font-extrabold text-rose-800 flex items-center space-x-2">
+                                <i class="fa-solid fa-thumbs-down text-rose-600"></i>
+                                <span>DISAGREEMENT (Tidak Setuju)</span>
+                            </span>
+                            <span id="count-disagreement" class="bg-rose-200 text-rose-800 font-bold px-2.5 py-1 rounded-full text-xs">0 Card</span>
+                        </div>
+                        <div id="cards-disagreement" class="space-y-3 flex-grow">
+                            <!-- Dropped items go here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Check Answer Button & Score Dialog -->
+            <div class="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-xl flex items-center justify-between">
+                <div>
+                    <span id="game-status-text" class="text-sm font-bold text-slate-600">Pindahkan semua kartu frasa ke dalam kotak kategori!</span>
+                </div>
+                <button onclick="checkGameAnswers()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold px-6 py-3 rounded-2xl shadow-lg transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Cek Jawaban Saya</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 6: TENTANG (DEVELOPER PROFILE & CURRICULUM METADATA) -->
+        <!-- ================================================================= -->
+        <section id="tab-tentang" class="tab-content hidden space-y-8">
+            <!-- Profile Hero Card -->
+            <div class="bg-white rounded-3xl p-6 sm:p-10 border-2 border-slate-200 shadow-xl space-y-8">
+                <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 text-center sm:text-left">
+                    <div class="relative">
+                        <div class="w-28 h-28 sm:w-32 sm:h-32 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-3xl p-1 shadow-xl flex items-center justify-center text-white text-6xl">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <span class="absolute -bottom-2 -right-2 bg-emerald-500 border-2 border-white text-white p-1.5 rounded-full text-xs" title="Guru Pengembang Aktif">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <span class="bg-indigo-100 text-indigo-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Pengembang Media Pembelajaran</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Neneng Noeraeni Aprianti, M.Pd.</h2>
+                        <p class="text-slate-600 font-semibold text-sm sm:text-base">Guru Bahasa Inggris SMP • Pendidik Profesional</p>
+                        <div class="pt-1 flex flex-wrap justify-center sm:justify-start gap-2 text-xs font-bold text-slate-500">
+                            <span class="bg-slate-100 px-3 py-1 rounded-lg"><i class="fa-solid fa-school mr-1 text-indigo-500"></i> SMP Fase D</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-lg"><i class="fa-solid fa-book mr-1 text-indigo-500"></i> Kurikulum Merdeka</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-lg"><i class="fa-solid fa-code mr-1 text-indigo-500"></i> Web Learning App</span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-slate-100">
+
+                <!-- Metadata Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Deskripsi Media -->
+                    <div class="bg-indigo-50/60 rounded-2xl p-5 border border-indigo-100 space-y-3">
+                        <h3 class="font-extrabold text-indigo-900 flex items-center space-x-2">
+                            <i class="fa-solid fa-circle-info text-indigo-600"></i>
+                            <span>Tentang Media Pembelajaran</span>
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Aplikasi interaktif ini dirancang khusus untuk memfasilitasi pembelajaran mandiri dan kolaboratif siswa SMP Kelas 9 dalam menguasai topik ungkapan setuju dan tidak setuju (<em>Agreement & Disagreement</em>). Dilengkapi fitur Web Speech Text-to-Speech untuk melatih *listening* & *pronunciation*, kuis real-time, serta game interaktif.
+                        </p>
+                    </div>
+
+                    <!-- Profil Pelajar Pancasila -->
+                    <div class="bg-purple-50/60 rounded-2xl p-5 border border-purple-100 space-y-3">
+                        <h3 class="font-extrabold text-purple-900 flex items-center space-x-2">
+                            <i class="fa-solid fa-hands-holding-child text-purple-600"></i>
+                            <span>Profil Pelajar Pancasila</span>
+                        </h3>
+                        <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 font-semibold">
+                            <li class="flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-purple-600"></i>
+                                <span><strong>Bernalar Kritis:</strong> Menganalisis argumen dan memberikan respon yang tepat.</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-purple-600"></i>
+                                <span><strong>Mandiri:</strong> Melatih pemahaman secara mandiri melalui modul interaktif.</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-purple-600"></i>
+                                <span><strong>Gotong Royong:</strong> Berkomunikasi secara sopan dan menghargai pendapat orang lain.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Teacher Feedback Box -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-4">
+                    <h3 class="font-extrabold text-slate-800 text-lg">Catatan Refleksi Siswa</h3>
+                    <p class="text-xs text-slate-500">Tuliskan pesan atau kesanmu setelah belajar menggunakan media interaktif ini!</p>
+                    <textarea id="student-reflection-note" rows="3" class="w-full p-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" placeholder="Tuliskan pendapatmu di sini... (misal: Saya sangat senang belajar dengan fitur audio flashcard)"></textarea>
+                    <button onclick="saveStudentNote()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm shadow transition-all">
+                        Simpan Catatan Saya
+                    </button>
+                    <p id="reflection-saved-msg" class="hidden text-xs font-bold text-emerald-600">
+                        <i class="fa-solid fa-circle-check"></i> Catatan refleksi berhasil disimpan!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="text-sm font-bold text-slate-700">
+                Media Pembelajaran Interaktif Bahasa Inggris Kelas 9 SMP © 2026
+            </p>
+            <p class="text-xs text-slate-500">
+                Dikembangkan oleh <strong class="text-indigo-600">Neneng Noeraeni Aprianti, M.Pd.</strong> • Fase D Kurikulum Merdeka
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        /* ================================================================= */
+        /* WEB AUDIO API SYNTHESIZER (SOUND EFFECTS) */
+        /* ================================================================= */
+        // Synthesizes pleasant retro UI sounds using Web Audio API without relying on external MP3 files
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'correct') {
+                // Pleasant major chord chime
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                osc.start(now);
+                osc.stop(now + 0.5);
+            } else if (type === 'wrong') {
+                // Low error tone
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, now);
+                osc.frequency.setValueAtTime(150, now + 0.15);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (type === 'click') {
+                // Subtle pop
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(400, now);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                osc.start(now);
+                osc.stop(now + 0.08);
+            } else if (type === 'fanfare') {
+                // Winning confetti synth chime
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                    const subOsc = audioCtx.createOscillator();
+                    const subGain = audioCtx.createGain();
+                    subOsc.connect(subGain);
+                    subGain.connect(audioCtx.destination);
+                    subOsc.frequency.setValueAtTime(freq, now + idx * 0.1);
+                    subGain.gain.setValueAtTime(0.2, now + idx * 0.1);
+                    subGain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.4);
+                    subOsc.start(now + idx * 0.1);
+                    subOsc.stop(now + idx * 0.1 + 0.4);
+                });
+            }
+        }
+
+        /* ================================================================= */
+        /* WEB SPEECH API TEXT-TO-SPEECH (TTS ENGINE) */
+        /* ================================================================= */
+        function speakEnglish(text) {
+            playSound('click');
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop ongoing speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9; // Slightly slower for language learners
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Browser anda tidak mendukung Text-to-Speech audio.');
+            }
+        }
+
+        /* ================================================================= */
+        /* SINGLE PAGE APPLICATION (SPA) ROUTER */
+        /* ================================================================= */
+        function switchTab(tabId) {
+            playSound('click');
+            
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+
+            // Show target tab content
+            const targetTab = document.getElementById('tab-' + tabId);
+            if (targetTab) {
+                targetTab.classList.remove('hidden');
+            }
+
+            // Update navbar styling
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+                activeBtn.classList.remove('text-slate-600');
+            }
+
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        /* ================================================================= */
+        /* COMIC DIALOGUE INTERACTION (HOME TAB) */
+        /* ================================================================= */
+        function setComicResponse(type) {
+            playSound('click');
+            const typeBadge = document.getElementById('siti-type-badge');
+            const englishText = document.getElementById('siti-english-text');
+            const indoText = document.getElementById('siti-indo-text');
+            const audioBtn = document.getElementById('siti-audio-btn');
+
+            if (type === 'agree') {
+                typeBadge.textContent = 'Expressing Agreement';
+                typeBadge.className = 'text-xs font-bold text-emerald-600 uppercase';
+                englishText.textContent = '"I couldn\'t agree more, Budi! We can all bring our own reusable water bottles from home."';
+                indoText.textContent = '(Aku sangat setuju sekali, Budi! Kita semua bisa membawa botol minum sendiri dari rumah.)';
+                audioBtn.setAttribute('onclick', "speakEnglish('I couldn\'t agree more, Budi! We can all bring our own reusable water bottles from home.')");
+                
+                document.getElementById('btn-comic-agree').classList.add('ring-4', 'ring-emerald-300');
+                document.getElementById('btn-comic-disagree').classList.remove('ring-4', 'ring-rose-300');
+            } else {
+                typeBadge.textContent = 'Expressing Polite Disagreement';
+                typeBadge.className = 'text-xs font-bold text-rose-600 uppercase';
+                englishText.textContent = '"I see your point, Budi, but some students might forget to bring their bottles."';
+                indoText.textContent = '(Aku paham maksudmu, Budi, tetapi beberapa siswa mungkin lupa membawa botol mereka.)';
+                audioBtn.setAttribute('onclick', "speakEnglish('I see your point, Budi, but some students might forget to bring their bottles.')");
+
+                document.getElementById('btn-comic-disagree').classList.add('ring-4', 'ring-rose-300');
+                document.getElementById('btn-comic-agree').classList.remove('ring-4', 'ring-emerald-300');
+            }
+        }
+
+        /* ================================================================= */
+        /* FLASHCARD RENDERER & FLIP LOGIC */
+        /* ================================================================= */
+        const flashcardsData = [
+            {
+                english: "I couldn't agree more!",
+                indonesian: "Saya sangat-sangat setuju sekali!",
+                category: "Strong Agreement",
+                color: "emerald"
+            },
+            {
+                english: "You hit the nail on the head!",
+                indonesian: "Pendapatmu tepat sekali!",
+                category: "Strong Agreement",
+                color: "emerald"
+            },
+            {
+                english: "I see your point, but...",
+                indonesian: "Saya tahu maksudmu, tetapi...",
+                category: "Polite Disagreement",
+                color: "amber"
+            },
+            {
+                english: "I'm afraid I disagree.",
+                indonesian: "Saya rasa saya tidak setuju.",
+                category: "Polite Disagreement",
+                color: "amber"
+            },
+            {
+                english: "I totally disagree with you.",
+                indonesian: "Saya sama sekali tidak setuju denganmu.",
+                category: "Strong Disagreement",
+                color: "rose"
+            },
+            {
+                english: "That's a valid point.",
+                indonesian: "Itu adalah poin yang bagus/valid.",
+                category: "Mild Agreement",
+                color: "teal"
+            }
+        ];
+
+        function renderFlashcards() {
+            const grid = document.getElementById('flashcard-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            flashcardsData.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'perspective-1000 h-48 cursor-pointer select-none';
+                cardEl.innerHTML = `
+                    <div id="flashcard-inner-${index}" onclick="flipFlashcard(${index})" class="transform-style-3d relative w-full h-full bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-2xl shadow-md p-5 flex flex-col justify-between hover:shadow-xl transition-all">
+                        <!-- Front Face -->
+                        <div class="backface-hidden absolute inset-0 p-5 flex flex-col justify-between">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-extrabold text-indigo-600 bg-indigo-100 px-2.5 py-1 rounded-full">${card.category}</span>
+                                <button onclick="event.stopPropagation(); speakEnglish('${card.english.replace(/'/g, "\\'")}')" class="text-indigo-600 hover:text-indigo-800 text-lg p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+                            <h4 class="text-xl font-black text-slate-800 text-center my-auto">"${card.english}"</h4>
+                            <p class="text-xs text-center font-bold text-slate-400">Klik untuk balik <i class="fa-solid fa-rotate"></i></p>
+                        </div>
+                        <!-- Back Face -->
+                        <div class="backface-hidden rotate-y-180 absolute inset-0 p-5 bg-indigo-600 text-white rounded-2xl flex flex-col justify-between text-center">
+                            <span class="text-xs font-bold text-indigo-200 uppercase">Terjemahan</span>
+                            <h4 class="text-lg font-bold my-auto">"${card.indonesian}"</h4>
+                            <p class="text-xs text-indigo-200">Klik untuk kembali</p>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function flipFlashcard(index) {
+            playSound('click');
+            const inner = document.getElementById(`flashcard-inner-${index}`);
+            if (inner) {
+                inner.classList.toggle('rotate-y-180');
+            }
+        }
+
+        /* ================================================================= */
+        /* IKTP CHECKLIST LOGIC */
+        /* ================================================================= */
+        function updateIKTPProgress() {
+            playSound('click');
+            const checkboxes = document.querySelectorAll('.iktp-check');
+            let checkedCount = 0;
+            checkboxes.forEach(cb => { if (cb.checked) checkedCount++; });
+
+            const counter = document.getElementById('iktp-counter');
+            if (counter) {
+                counter.textContent = `${checkedCount} / ${checkboxes.length} Selesai`;
+                if (checkedCount === checkboxes.length) {
+                    counter.className = "bg-emerald-500 text-white font-extrabold px-4 py-2 rounded-2xl text-sm animate-bounce";
+                    confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+                    playSound('fanfare');
+                } else {
+                    counter.className = "bg-indigo-100 text-indigo-700 font-extrabold px-4 py-2 rounded-2xl text-sm";
+                }
+            }
+        }
+
+        /* ================================================================= */
+        /* KUIS INTERAKTIF ENGINE */
+        /* ================================================================= */
+        const quizQuestions = [
+            {
+                context: "Rani: 'I think wearing batik uniform on Friday makes us look proud of Indonesian culture.'\nDewi: '___! Batik is our beautiful tradition.'",
+                options: [
+                    "I couldn't agree more",
+                    "I totally disagree",
+                    "I am not sure about that",
+                    "I don't think so"
+                ],
+                correct: 0,
+                explanation: "'I couldn't agree more' menyatakan kesetujuan yang sangat kuat (Strong Agreement)."
+            },
+            {
+                context: "Eko: 'English is very difficult to learn.'\nBudi: '___! If we practice every day, it becomes easy and fun.'",
+                options: [
+                    "That's exactly right",
+                    "I see your point, but I disagree",
+                    "I agree with you",
+                    "You're totally right"
+                ],
+                correct: 1,
+                explanation: "Budi memiliki pendapat berbeda/menolak ide Eko dengan sopan, sehingga memakai ungkapan ketidaksetujuan."
+            },
+            {
+                context: "Manakah di bawah ini frasa yang menunjukkan ketidaksetujuan secara SOPAN (Polite Disagreement)?",
+                options: [
+                    "You are completely wrong!",
+                    "That's a silly idea!",
+                    "I see your point, but...",
+                    "Nonsense!"
+                ],
+                correct: 2,
+                explanation: "'I see your point, but...' menghargai pendapat lawan bicara sebelum menyampaikan ketidaksetujuan."
+            },
+            {
+                context: "Siti: 'Planting trees around our school yard will make the air cooler.'\nMaya: '___! Let's talk to our teacher to buy seeds.'",
+                options: [
+                    "I disagree with you",
+                    "I don't think that's good",
+                    "That's a great idea",
+                    "I am doubtful"
+                ],
+                correct: 2,
+                explanation: "Maya mendukung ide Siti dengan kalimat antusias 'That's a great idea'."
+            },
+            {
+                context: "Ungkapan 'I couldn't agree more' memiliki arti yang sama dengan...",
+                options: [
+                    "Saya tidak setuju sama sekali",
+                    "Saya sangat setuju sepenuhnya",
+                    "Saya ragu-ragu",
+                    "Saya tidak paham"
+                ],
+                correct: 1,
+                explanation: "'I couldn't agree more' berarti 'Saya tidak bisa lebih setuju lagi' yang bermakna Sangat Setuju."
+            }
+        ];
+
+        let currentQIndex = 0;
+        let quizScore = 0;
+        let timerInterval = null;
+        let timeLeft = 20;
+
+        function loadQuizQuestion() {
+            if (currentQIndex >= quizQuestions.length) {
+                showQuizResults();
+                return;
+            }
+
+            const q = quizQuestions[currentQIndex];
+            document.getElementById('question-number-badge').textContent = `Soal ${currentQIndex + 1} dari ${quizQuestions.length}`;
+            document.getElementById('quiz-score-badge').textContent = `Skor Sementara: ${quizScore}`;
+            document.getElementById('question-context').textContent = q.context;
+
+            // Update Progress Bar
+            const progressPercent = ((currentQIndex + 1) / quizQuestions.length) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
+
+            // Reset Options Container
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-opt-btn bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-300 p-4 rounded-2xl text-left font-bold text-slate-800 transition-all flex items-center space-x-3';
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-xl bg-white border border-slate-300 flex items-center justify-center font-extrabold text-indigo-600 text-sm flex-shrink-0">${String.fromCharCode(65 + idx)}</span>
+                    <span>${opt}</span>
+                `;
+                btn.onclick = () => selectQuizAnswer(idx);
+                container.appendChild(btn);
+            });
+
+            // Reset feedback & next button
+            document.getElementById('feedback-box').className = 'hidden';
+            document.getElementById('next-q-btn').disabled = true;
+
+            // Reset Timer
+            resetTimer();
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 20;
+            document.getElementById('quiz-timer').textContent = `${timeLeft}s`;
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('quiz-timer').textContent = `${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    // Auto timeout option highlight
+                    selectQuizAnswer(-1);
+                }
+            }, 1000);
+        }
+
+        function selectQuizAnswer(selectedIdx) {
+            clearInterval(timerInterval);
+            const q = quizQuestions[currentQIndex];
+            const buttons = document.querySelectorAll('.quiz-opt-btn');
+
+            // Disable all buttons after selection
+            buttons.forEach(btn => btn.disabled = true);
+
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackIcon = document.getElementById('feedback-icon');
+            const feedbackText = document.getElementById('feedback-text');
+
+            if (selectedIdx === q.correct) {
+                playSound('correct');
+                quizScore += 20;
+                buttons[selectedIdx].classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+                
+                feedbackBox.className = 'flex items-center space-x-3 bg-emerald-100 text-emerald-900 border border-emerald-300 p-4 rounded-2xl';
+                feedbackIcon.className = 'fa-solid fa-circle-check text-emerald-600 text-2xl';
+                feedbackText.textContent = `Benar! ${q.explanation}`;
+            } else {
+                playSound('wrong');
+                if (selectedIdx >= 0) {
+                    buttons[selectedIdx].classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900');
+                }
+                // Highlight correct answer
+                buttons[q.correct].classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+
+                feedbackBox.className = 'flex items-center space-x-3 bg-rose-100 text-rose-900 border border-rose-300 p-4 rounded-2xl';
+                feedbackIcon.className = 'fa-solid fa-circle-xmark text-rose-600 text-2xl';
+                feedbackText.textContent = `Kurang tepat. Jawaban yang benar adalah: ${q.options[q.correct]}. ${q.explanation}`;
+            }
+
+            document.getElementById('quiz-score-badge').textContent = `Skor Sementara: ${quizScore}`;
+            document.getElementById('next-q-btn').disabled = false;
+        }
+
+        function nextQuestion() {
+            playSound('click');
+            currentQIndex++;
+            loadQuizQuestion();
+        }
+
+        function showQuizResults() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-screen').classList.add('hidden');
+            const resultScreen = document.getElementById('quiz-result-screen');
+            resultScreen.classList.remove('hidden');
+
+            document.getElementById('final-score-text').textContent = quizScore;
+            
+            const msg = document.getElementById('final-message-text');
+            if (quizScore >= 80) {
+                msg.textContent = "Luar biasa! Kamu sangat menguasai ungkapan Agreement & Disagreement!";
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                playSound('fanfare');
+            } else if (quizScore >= 60) {
+                msg.textContent = "Bagus! Kamu sudah memahami sebagian besar materi. Pelajari lagi flashcard untuk nilai sempurna!";
+                playSound('correct');
+            } else {
+                msg.textContent = "Tetap semangat! Coba baca kembali modul materi dan ulangi kuis ini ya.";
+                playSound('wrong');
+            }
+        }
+
+        function restartQuiz() {
+            playSound('click');
+            currentQIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-result-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            loadQuizQuestion();
+        }
+
+        /* ================================================================= */
+        /* DRAG AND DROP GAME ENGINE */
+        /* ================================================================= */
+        const initialGameCards = [
+            { id: 'c1', text: "I couldn't agree more", category: "agreement" },
+            { id: 'c2', text: "I totally disagree", category: "disagreement" },
+            { id: 'c3', text: "You are absolutely right", category: "agreement" },
+            { id: 'c4', text: "I see your point, but...", category: "disagreement" },
+            { id: 'c5', text: "That's exactly what I think", category: "agreement" },
+            { id: 'c6', text: "I don't think so", category: "disagreement" },
+            { id: 'c7', text: "That's a good point", category: "agreement" },
+            { id: 'c8', text: "I'm afraid I disagree", category: "disagreement" }
+        ];
+
+        let gameCardsState = [];
+        let selectedCardId = null;
+
+        function initGame() {
+            gameCardsState = JSON.parse(JSON.stringify(initialGameCards));
+            // Shuffle
+            gameCardsState.sort(() => Math.random() - 0.5);
+            renderGame();
+        }
+
+        function renderGame() {
+            const sourceContainer = document.getElementById('source-cards-container');
+            const agreementBox = document.getElementById('cards-agreement');
+            const disagreementBox = document.getElementById('cards-disagreement');
+
+            sourceContainer.innerHTML = '';
+            agreementBox.innerHTML = '';
+            disagreementBox.innerHTML = '';
+
+            let sourceCount = 0;
+            let agreeCount = 0;
+            let disagreeCount = 0;
+
+            gameCardsState.forEach(card => {
+                const cardEl = document.createElement('div');
+                cardEl.id = card.id;
+                cardEl.draggable = true;
+                cardEl.ondragstart = (e) => handleDragStart(e, card.id);
+                cardEl.onclick = (e) => { e.stopPropagation(); selectCardForAssign(card.id); };
+
+                let borderClass = 'border-slate-200 bg-slate-50';
+                if (selectedCardId === card.id) {
+                    borderClass = 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-400';
+                }
+
+                cardEl.className = `p-3.5 rounded-2xl border-2 ${borderClass} font-bold text-slate-800 text-sm shadow-sm cursor-grab active:cursor-grabbing hover:shadow transition-all flex items-center justify-between`;
+                cardEl.innerHTML = `
+                    <span>"${card.text}"</span>
+                    <i class="fa-solid fa-grip-vertical text-slate-400"></i>
+                `;
+
+                if (!card.placed) {
+                    sourceContainer.appendChild(cardEl);
+                    sourceCount++;
+                } else if (card.placed === 'agreement') {
+                    agreementBox.appendChild(cardEl);
+                    agreeCount++;
+                } else if (card.placed === 'disagreement') {
+                    disagreementBox.appendChild(cardEl);
+                    disagreeCount++;
+                }
+            });
+
+            document.getElementById('game-cards-left').textContent = `${sourceCount} Kartu`;
+            document.getElementById('count-agreement').textContent = `${agreeCount} Card`;
+            document.getElementById('count-disagreement').textContent = `${disagreeCount} Card`;
+        }
+
+        function selectCardForAssign(cardId) {
+            playSound('click');
+            selectedCardId = selectedCardId === cardId ? null : cardId;
+            renderGame();
+        }
+
+        function assignSelectedCard(zone) {
+            if (selectedCardId) {
+                playSound('click');
+                const card = gameCardsState.find(c => c.id === selectedCardId);
+                if (card) {
+                    card.placed = zone;
+                }
+                selectedCardId = null;
+                renderGame();
+            }
+        }
+
+        function handleDragStart(e, cardId) {
+            e.dataTransfer.setData('text/plain', cardId);
+            selectedCardId = cardId;
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dropzone-active');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('dropzone-active');
+        }
+
+        function handleDrop(e, zone) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dropzone-active');
+            const cardId = e.dataTransfer.getData('text/plain') || selectedCardId;
+            if (cardId) {
+                playSound('click');
+                const card = gameCardsState.find(c => c.id === cardId);
+                if (card) {
+                    card.placed = zone;
+                }
+                selectedCardId = null;
+                renderGame();
+            }
+        }
+
+        function checkGameAnswers() {
+            let correctCount = 0;
+            let totalPlaced = 0;
+
+            gameCardsState.forEach(card => {
+                if (card.placed) {
+                    totalPlaced++;
+                    if (card.placed === card.category) {
+                        correctCount++;
+                    }
+                }
+            });
+
+            if (totalPlaced < gameCardsState.length) {
+                playSound('wrong');
+                alert('Masih ada kartu yang belum dikelompokkan! Pindahkan semua kartu terlebih dahulu.');
+                return;
+            }
+
+            if (correctCount === gameCardsState.length) {
+                playSound('fanfare');
+                confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+                document.getElementById('game-status-text').innerHTML = `
+                    <span class="text-emerald-600 font-extrabold text-base">
+                        <i class="fa-solid fa-circle-check"></i> Luar biasa! Semua ${correctCount} frasa dikelompokkan dengan benar!
+                    </span>
+                `;
+            } else {
+                playSound('wrong');
+                document.getElementById('game-status-text').innerHTML = `
+                    <span class="text-rose-600 font-extrabold text-base">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Kamu benar ${correctCount} dari ${gameCardsState.length} frasa. Coba reset dan perbaiki lagi!
+                    </span>
+                `;
+            }
+        }
+
+        function resetGame() {
+            playSound('click');
+            selectedCardId = null;
+            document.getElementById('game-status-text').textContent = 'Pindahkan semua kartu frasa ke dalam kotak kategori!';
+            initGame();
+        }
+
+        /* ================================================================= */
+        /* REFLECTION NOTE HANDLER */
+        /* ================================================================= */
+        function saveStudentNote() {
+            playSound('correct');
+            const noteText = document.getElementById('student-reflection-note').value;
+            if (noteText.trim() !== "") {
+                const savedMsg = document.getElementById('reflection-saved-msg');
+                savedMsg.classList.remove('hidden');
+                setTimeout(() => {
+                    savedMsg.classList.add('hidden');
+                }, 3000);
+            }
+        }
+
+        /* ================================================================= */
+        /* APP INITIALIZATION ON WINDOW LOAD */
+        /* ================================================================= */
+        window.onload = function() {
+            renderFlashcards();
+            loadQuizQuestion();
+            initGame();
+        };
+    </script>
+</body>
+</html>
